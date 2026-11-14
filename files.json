@@ -1,0 +1,64 @@
+{
+  "project": "site_mirror",
+  "version": "1.4",
+  "pages_url": "https://USERNAME.github.io/site-mirror/",
+  "repository": "https://github.com/USERNAME/site-mirror",
+  "files": [
+    {
+      "path": "download/site_mirror.py",
+      "name": "site_mirror.py",
+      "description": "Скрипт v1.4 — CLI, веб-интерфейс, tkinter",
+      "bytes": 177435,
+      "size": "173.3 КБ",
+      "sha256": "6207cfd11d1f3eae19a21989cefbf113666d8287871e75cc799e8fb3333292b7"
+    },
+    {
+      "path": "download/site-mirror.zip",
+      "name": "site-mirror.zip",
+      "description": "Готовый архив проекта",
+      "bytes": 54205,
+      "size": "52.9 КБ",
+      "sha256": "69c78dc46383659712f890a9eb53e4f4bccfe7a809644080c35ea4356ab4bd31"
+    },
+    {
+      "path": "README.md",
+      "name": "README.md",
+      "description": "Инструкция по деплою на GitHub Pages",
+      "bytes": 11436,
+      "size": "11.2 КБ",
+      "sha256": "749fa12679b01ade6bdb57aa17bcb5ea00039f9b4452e3c64a0d0adabf9942af"
+    },
+    {
+      "path": "assets/og-image.png",
+      "name": "og-image.png",
+      "description": "OG-картинка 1200×630 для Discord",
+      "bytes": 150968,
+      "size": "147.4 КБ",
+      "sha256": "5f7bbeca0dc7a8d6d0bfa31ced6c4875178bd2eb4952a9a054db85f2d3913d76"
+    },
+    {
+      "path": "assets/favicon.svg",
+      "name": "favicon.svg",
+      "description": "Иконка сайта",
+      "bytes": 890,
+      "size": "0.9 КБ",
+      "sha256": "be3f790149d28c116813fa787620652f048fbbe2114457098234da99bf2ce14d"
+    },
+    {
+      "path": "embed-tags.html",
+      "name": "embed-tags.html",
+      "description": "Готовые OG-метатеги",
+      "bytes": 3446,
+      "size": "3.4 КБ",
+      "sha256": "4271e425b0f2d8de925a06867f61509d90623bae562089ff712be296964fd1a7"
+    },
+    {
+      "path": "oembed.json",
+      "name": "oembed.json",
+      "description": "oEmbed-ответ",
+      "bytes": 462,
+      "size": "0.5 КБ",
+      "sha256": "8e70636c0c081604abbef6b6b6bcfb2862d5f5804df8c8dac0f68baf91daced2"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>site_mirror — готовые OG-метатеги для Discord</title>
+<style>
+body{margin:0;background:#0b101b;color:#eaf1ff;font:14px/1.6 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding:36px 20px}
+main{max-width:860px;margin:auto}
+h1{font-size:24px;margin:0 0 8px}
+p{color:#93a6c1}
+pre{background:#111a29;border:1px solid #26354d;border-radius:12px;padding:18px;overflow:auto;
+  font:12.5px/1.75 ui-monospace,Consolas,monospace;color:#d6e2f5;white-space:pre}
+code{font-family:ui-monospace,Consolas,monospace;color:#7aadff}
+a{color:#7aadff}
+</style>
+</head>
+<body>
+<main>
+  <h1>Метатеги для красивого Embed в Discord</h1>
+  <p>Скопируй блок в <code>&lt;head&gt;</code> своей страницы. Замени <code>USERNAME</code> на логин GitHub (или запусти <code>python configure.py --user ТВОЙ_ЛОГИН</code> — он сделает это сам).</p>
+<pre>&lt;!-- ── Open Graph / Discord ──────────────────────────────── --&gt;
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:site_name" content="site_mirror"&gt;
+&lt;meta property="og:locale" content="ru_RU"&gt;
+&lt;meta property="og:title" content="site_mirror — скачать сайт в ZIP"&gt;
+&lt;meta property="og:description" content="Один ZIP со всеми файлами сайта: ассеты из JS/JSON, iframe-рамки предпросмотра, переписанные ссылки. Python 3.8+, без зависимостей."&gt;
+&lt;meta property="og:url" content="https://USERNAME.github.io/site-mirror/"&gt;
+&lt;meta property="og:image" content="https://USERNAME.github.io/site-mirror/assets/og-image.png"&gt;
+&lt;meta property="og:image:secure_url" content="https://USERNAME.github.io/site-mirror/assets/og-image.png"&gt;
+&lt;meta property="og:image:type" content="image/png"&gt;
+&lt;meta property="og:image:width" content="1200"&gt;
+&lt;meta property="og:image:height" content="630"&gt;
+&lt;meta property="og:image:alt" content="site_mirror — скачивай сайты в один ZIP-архив"&gt;
+
+&lt;!-- ── Цвет полоски слева + Twitter fallback ─────────────── --&gt;
+&lt;meta name="theme-color" content="#5865F2"&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="site_mirror — скачать сайт в ZIP"&gt;
+&lt;meta name="twitter:description" content="Один ZIP со всеми файлами сайта. Python 3.8+, без зависимостей, v1.4."&gt;
+&lt;meta name="twitter:image" content="https://USERNAME.github.io/site-mirror/assets/og-image.png"&gt;
+&lt;link rel="canonical" href="https://USERNAME.github.io/site-mirror/"&gt;</pre>
+  <p>Требования Discord: абсолютные HTTPS-ссылки, картинка 1200×630 до 8 МБ, теги в исходном HTML (JavaScript краулер не исполняет), страница доступна без авторизации. Кэш сбрасывается добавлением <code>?v=2</code> к ссылке в сообщении.</p>
+  <p><a href="index.html">← На главную</a></p>
+</main>
+</body>
+</html>
