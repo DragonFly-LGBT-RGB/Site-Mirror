@@ -38,8 +38,11 @@ REQUIREMENTS = """# Зависимостей нет: только стандар
 # Этот файл здесь для совместимости с шаблонами CI.
 """
 
+BRIDGE = (ROOT / "bridge.py").read_bytes()
+
 files = {
     "site_mirror.py": script,
+    "bridge.py": BRIDGE,
     "README.md": README.encode("utf-8"),
     "start.bat": START_BAT.encode("utf-8"),
     "start.sh": START_SH.encode("utf-8"),

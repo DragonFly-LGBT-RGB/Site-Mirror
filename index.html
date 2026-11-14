@@ -4,25 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>site_mirror — скачать сайт в ZIP · v1.4</title>
-<meta name="description" content="site_mirror v1.4 копирует сайт по IP или URL, достаёт ассеты из JS/JSON, разворачивает iframe-рамки предпросмотра и упаковывает всё в один ZIP. Python 3.8+, без зависимостей.">
+<meta name="description" content="Вставь адрес — Site-Mirror сам скачает страницы, скрипты, стили и ассеты, перепишет ссылки и отдаст готовый ZIP-архив сайта. Работает прямо на GitHub Pages; для локальных адресов есть мост на базе site_mirror.py v1.4.">
 <meta name="author" content="site_mirror">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#5865F2">
-<link rel="canonical" href="https://USERNAME.github.io/site-mirror/">
+<link rel="canonical" href="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="apple-touch-icon" href="assets/icon-512.png">
-<link rel="alternate" type="application/json+oembed" href="https://USERNAME.github.io/site-mirror/oembed.json" title="site_mirror">
+<link rel="alternate" type="application/json+oembed" href="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/oembed.json" title="site_mirror">
 
 <!-- ── Open Graph / Discord embed ─────────────────────────────────────── -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="site_mirror">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="site_mirror — скачать сайт в ZIP">
-<meta property="og:description" content="Один ZIP со всеми файлами сайта: ассеты из JS/JSON, iframe-рамки предпросмотра, переписанные ссылки. Python 3.8+, без зависимостей.">
-<meta property="og:url" content="https://USERNAME.github.io/site-mirror/">
-<meta property="og:image" content="https://USERNAME.github.io/site-mirror/assets/og-image.png">
-<meta property="og:image:secure_url" content="https://USERNAME.github.io/site-mirror/assets/og-image.png">
+<meta property="og:description" content="Вставь адрес — сайт сам обойдёт страницы, достанет ассеты из JS/JSON, перепишет ссылки и отдаст готовый ZIP-архив. Прямо в браузере, без установки.">
+<meta property="og:url" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/">
+<meta property="og:image" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png">
+<meta property="og:image:secure_url" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -30,12 +30,12 @@
 <!-- ── Twitter / fallback для некоторых краулеров ────────────────────── -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="site_mirror — скачать сайт в ZIP">
-<meta name="twitter:description" content="Один ZIP со всеми файлами сайта. Python 3.8+, без зависимостей, v1.4.">
-<meta name="twitter:image" content="https://USERNAME.github.io/site-mirror/assets/og-image.png">
+<meta name="twitter:description" content="Вставь адрес — получи ZIP со всем сайтом. Страницы, ассеты, переписанные ссылки. Прямо в браузере.">
+<meta name="twitter:image" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png">
 <meta name="twitter:image:alt" content="site_mirror — скачивай сайты в один ZIP-архив">
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"site_mirror","softwareVersion":"1.4","applicationCategory":"DeveloperApplication","operatingSystem":"Windows, macOS, Linux","programmingLanguage":"Python 3.8+","description":"Копирует веб-сайт по IP или URL в локальную папку и упаковывает файлы в ZIP.","url":"https://USERNAME.github.io/site-mirror/","downloadUrl":"https://USERNAME.github.io/site-mirror/download/site-mirror.zip","codeRepository":"https://github.com/USERNAME/site-mirror","image":"https://USERNAME.github.io/site-mirror/assets/og-image.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"site_mirror","softwareVersion":"1.4","applicationCategory":"DeveloperApplication","operatingSystem":"Windows, macOS, Linux","programmingLanguage":"Python 3.8+","description":"Вставь адрес — сайт сам скачает страницы и ассеты, перепишет ссылки и отдаст готовый ZIP-архив.","url":"https://dragonfly-lgbt-rgb.github.io/Site-Mirror/","downloadUrl":"https://dragonfly-lgbt-rgb.github.io/Site-Mirror/download/site-mirror.zip","codeRepository":"https://github.com/dragonfly-lgbt-rgb/Site-Mirror","image":"https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 </script>
 
 <style>
@@ -188,6 +188,46 @@ textarea{min-height:104px}
 .note{font-size:12.5px;color:var(--dim);line-height:1.65;margin-top:14px}
 .note b{color:var(--muted)}
 
+/* ── зеркало сайта → ZIP ───────────────────────────────────────────── */
+.mirror{display:grid;grid-template-columns:1.02fr .98fr;gap:18px}
+@media(max-width:900px){.mirror{grid-template-columns:1fr}}
+.mode{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 12px}
+.mode button{flex:1;min-width:190px;text-align:left;background:rgba(255,255,255,.02);
+  border:1px solid var(--line);border-radius:11px;padding:11px 13px;color:var(--muted);
+  font:600 13px var(--sans);cursor:pointer;transition:.16s}
+.mode button small{display:block;font:400 11px/1.4 var(--sans);color:var(--dim);margin-top:3px}
+.mode button:hover{border-color:#40577a}
+.mode button.on{background:rgba(79,141,253,.13);border-color:rgba(110,165,255,.5);color:#cfe0ff}
+.settings{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media(max-width:620px){.settings{grid-template-columns:1fr 1fr}}
+.settings label{font:600 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--dim)}
+.settings input{margin-top:6px}
+textarea,input[type=text],input[type=number]{width:100%;background:var(--bg2);color:var(--fg);
+  border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:12.5px/1.6 var(--mono);
+  resize:vertical;outline:none}
+textarea:focus,input[type=text]:focus,input[type=number]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,141,253,.15)}
+.checks2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
+@media(max-width:620px){.checks2{grid-template-columns:1fr}}
+.chk2{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);cursor:pointer}
+.chk2 input{accent-color:var(--blue);width:15px;height:15px;flex:none}
+.progress{height:9px;background:#101828;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue),var(--blurple),var(--mint));transition:width .3s}
+.mstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0}
+@media(max-width:520px){.mstats{grid-template-columns:1fr 1fr}}
+.mstat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.mstat b{display:block;font:650 16px var(--mono);color:var(--fg);font-variant-numeric:tabular-nums}
+.mstat span{font:10.5px var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.mlog{height:230px;overflow:auto;background:#080d17;border:1px solid var(--line);border-radius:11px;
+  padding:11px 12px;font:11.5px/1.65 var(--mono);color:#9fb2cd;white-space:pre-wrap;word-break:break-word}
+.mlog div{margin-bottom:1px}
+.mlog .ok{color:var(--mint)}.mlog .warn{color:var(--amber)}.mlog .err{color:var(--red)}.mlog .dim{color:var(--dim)}
+.result{margin-top:14px;padding:15px;border:1px solid rgba(84,214,138,.4);
+  background:rgba(84,214,138,.07);border-radius:12px;font-size:13px;color:#d9f2e4}
+.result b{display:block;font-size:15px;color:var(--mint);margin-bottom:5px}
+.result .row{margin-top:11px}
+.bridgebox{border:1px dashed #3a5278;border-radius:12px;padding:14px;margin-bottom:4px;background:rgba(79,141,253,.04)}
+
 /* ── шаги / таблицы / код ──────────────────────────────────────────── */
 .steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:760px){.steps{grid-template-columns:1fr}}
@@ -277,11 +317,12 @@ footer{margin-top:76px;border-top:1px solid var(--line);padding:28px 0 40px;colo
   <div class="wrap nav-in">
     <a class="brand" href="#top"><img src="assets/favicon.svg" alt="">site_mirror <span class="ver">v1.4</span></a>
     <nav class="nav-links">
-      <a href="#download">Скачать</a>
+      <a href="#mirror">Скачать сайт</a>
+      <a href="#download">Архив проекта</a>
       <a href="#archiver">Сборщик ZIP</a>
       <a href="#features">Возможности</a>
       <a href="#embed">Discord embed</a>
-      <a class="btn small" href="https://github.com/USERNAME/site-mirror" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn small" href="https://github.com/dragonfly-lgbt-rgb/Site-Mirror" target="_blank" rel="noopener">GitHub ↗</a>
     </nav>
   </div>
 </header>
@@ -293,13 +334,13 @@ footer{margin-top:76px;border-top:1px solid var(--line);padding:28px 0 40px;colo
       <div>
         <span class="badge"><span class="dot"></span> GITHUB PAGES · PYTHON 3.8+ · БЕЗ ЗАВИСИМОСТЕЙ</span>
         <h1>Скачивай сайты<br><span class="grad">в один ZIP-архив</span></h1>
-        <p class="sub">На базе <b>site_mirror.py v1.4</b>: копирует страницы по IP:порту или URL, вытаскивает ассеты из JS/JSON, разворачивает iframe-«рамки» предпросмотра и переписывает ссылки. На этой странице файлы уходят на устройство настоящим <span class="mono">.zip</span>.</p>
+        <p class="sub">Вставь адрес — <b>Site-Mirror сам обойдёт сайт</b>: страницы, скрипты, стили, картинки, музыку и уровни из JS/JSON. Перепишет ссылки, развернёт iframe-«рамки» и отдаст готовый <span class="mono">.zip</span> на устройство. Движок — <b>site_mirror.py v1.4</b>.</p>
         <div class="actions">
-          <a class="btn primary big" href="download/site-mirror.zip" download="site-mirror.zip"><span class="ico">↓</span> Скачать .zip</a>
-          <a class="btn big" href="#archiver">Собрать свой архив</a>
+          <a class="btn primary big" href="#mirror"><span class="ico">↓</span> Скачать сайт в ZIP</a>
+          <a class="btn big" href="download/site-mirror.zip" download="site-mirror.zip">Архив проекта .zip</a>
         </div>
         <div class="meta">
-          <span id="zipSize">≈ 52 КБ</span><span>6 файлов внутри</span><span>SHA-256 в README</span><span>работает офлайн</span>
+          <span id="zipSize">≈ 58 КБ</span><span>7 файлов внутри</span><span>без установки · публичный прокси</span><span>локальный мост для Radmin VPN</span>
         </div>
       </div>
 
@@ -317,8 +358,90 @@ footer{margin-top:76px;border-top:1px solid var(--line);padding:28px 0 40px;colo
         </div>
         <div class="zipcard">
           <div class="box">ZIP</div>
-          <div><b>site-mirror.zip</b><small>site_mirror.py · README · start.bat · start.sh · embed-tags.html</small></div>
+          <div><b>site-mirror.zip</b><small>site_mirror.py · bridge.py · README · start.bat · start.sh · embed-tags.html</small></div>
           <a class="btn small ghost" style="margin-left:auto" href="download/site_mirror.py" download>Только .py</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ЗЕРКАЛО САЙТА → ZIP ──────────────────────────────────────── -->
+    <section class="section" id="mirror">
+      <div class="eyebrow">00 / Главная функция</div>
+      <h2>Сайт скачивает сайт — и отдаёт ZIP</h2>
+      <p class="lead">Вставь адрес, нажми одну кнопку: обходчик соберёт HTML, CSS, JS, картинки, шрифты, музыку и ассеты из кода, перепишет ссылки на относительные, положит <code class="mono">index.html</code> + отчёт и сохранит настоящий ZIP на твоё устройство. Ничего не загружается на сервер — GitHub Pages просто раздаёт статику.</p>
+
+      <div class="mirror">
+        <div class="panel">
+          <h3>Что качаем</h3>
+          <p class="hint">Публичный сайт — через CORS-прокси. Локальный адрес / Radmin VPN (26.x.x.x) — через мост на своём компьютере.</p>
+
+          <label class="hint" for="mirrorUrl">Адрес сайта (URL, IP:порт или просто IP)</label>
+          <input type="text" id="mirrorUrl" spellcheck="false" value="https://example.com/" placeholder="http://26.12.34.56:8080/game/">
+
+          <div class="mode">
+            <button class="on" data-mode="proxy">◎ Публичный прокси <small>без установки · для сайтов в интернете</small></button>
+            <button data-mode="bridge">▣ Локальный мост <small>для Radmin VPN, localhost и любых адресов</small></button>
+          </div>
+
+          <div class="bridgebox" id="bridgeBox" hidden>
+            <label class="hint" for="bridgeUrl">Адрес запущенного моста</label>
+            <div class="row" style="margin-top:0">
+              <input type="text" id="bridgeUrl" value="http://127.0.0.1:8787" spellcheck="false" style="flex:1;min-width:180px">
+              <button class="btn small" id="btnPing">Проверить</button>
+            </div>
+            <div class="codebox" style="margin-top:10px">
+              <button class="copy" data-copy="#cmd-bridge">Копировать</button>
+<pre id="cmd-bridge"># распакуй site-mirror.zip в одну папку и запусти:
+python bridge.py
+# вставь в поле выше адрес из консоли: http://127.0.0.1:8787</pre>
+            </div>
+            <div class="row"><a class="btn small ghost" href="bridge.py" download>↓ Скачать bridge.py</a></div>
+            <p class="note" style="margin-top:10px">Мост использует настоящий движок <b>site_mirror.py v1.4</b>: многопоточно, с автоиндексами, догадками об ассетах, <b>?embed=true</b> и человечными ошибками. Файлы не покидают твой компьютер.</p>
+          </div>
+
+          <div class="settings">
+            <label>Глубина<input type="number" id="mDepth" value="3" min="0" max="10"></label>
+            <label>Макс. файлов<input type="number" id="mFiles" value="300" min="10" max="2000"></label>
+            <label>Макс. МБ<input type="number" id="mMB" value="25" min="1" max="200"></label>
+          </div>
+          <div class="checks2">
+            <label class="chk2"><input type="checkbox" id="mAssets" checked> ассеты из JS/CSS/JSON</label>
+            <label class="chk2"><input type="checkbox" id="mEmbed" checked> iframe-рамки → ?embed=true</label>
+            <label class="chk2"><input type="checkbox" id="mExternal"> разрешить внешние хосты</label>
+            <label class="chk2"><input type="checkbox" id="mIndex" checked> гарантировать index.html</label>
+          </div>
+
+          <details style="margin-top:12px">
+            <summary style="cursor:pointer;color:var(--muted);font-size:12.5px">Свой CORS-прокси / запасной вариант ▾</summary>
+            <label class="hint" style="display:block;margin-top:10px" for="mProxyTpl">Шаблон, где <code class="mono">{url}</code> заменится на адрес файла</label>
+            <input type="text" id="mProxyTpl" spellcheck="false" placeholder="https://my-worker.example/?url={url}">
+            <p class="note" style="margin-top:8px">Публичные прокси иногда недоступны или ограничивают частоту. Если у тебя есть свой Cloudflare Worker / прокси — вставь шаблон, он будет пробоваться первым. Для локальных адресов всё равно нужен «Локальный мост».</p>
+          </details>
+
+          <div class="row">
+            <button class="btn primary" id="btnMirror">↓ Скачать сайт в ZIP</button>
+            <button class="btn ghost" id="btnStop" disabled>■ Стоп</button>
+          </div>
+          <div class="status" id="mStatus" role="status" aria-live="polite">Готов. Введи адрес и нажми «Скачать сайт в ZIP».</div>
+          <p class="note"><b>Про CORS.</b> Браузер с публичной страницы не может напрямую читать чужой сайт — все запросы идут через публичные прокси (цепочка с автопереключением). Прокси не видят приватные сети и иногда ограничены по частоте. Если адрес локальный или прокси не справились — включи «Локальный мост»: это единственный способ получить <b>полное</b> зеркало без ограничений браузера.</p>
+        </div>
+
+        <div class="panel">
+          <h3>Прогресс</h3>
+          <p class="hint">Скачанные файлы сразу попадают в архив. Останов можно нажать в любой момент — сохранится то, что успело скачаться.</p>
+          <div class="progress"><i id="mBar"></i></div>
+          <div class="mstats">
+            <div class="mstat"><b id="mFiles">0</b><span>файлов</span></div>
+            <div class="mstat"><b id="mBytes">0 Б</b><span>объём</span></div>
+            <div class="mstat"><b id="mQueue">0</b><span>в очереди</span></div>
+            <div class="mstat"><b id="mErrors">0</b><span>ошибок</span></div>
+          </div>
+          <div class="mlog" id="mLog" aria-live="polite"></div>
+          <div class="result" id="mResult" hidden>
+            <b>✓ Архив готов и скачивается</b>
+            <span id="mResultInfo"></span>
+            <div class="row"><button class="btn small" id="btnAgain">↓ Скачать ZIP ещё раз</button></div>
+          </div>
         </div>
       </div>
     </section>
@@ -331,7 +454,7 @@ footer{margin-top:76px;border-top:1px solid var(--line);padding:28px 0 40px;colo
       <div class="grid c3">
         <div class="card">
           <div class="ic">↓</div><h3>Готовый архив проекта</h3>
-          <p>Скрипт v1.4, инструкция, лаунчеры для Windows и Linux, готовые OG-метатеги. Вес <b id="zipSize2">≈ 52 КБ</b>.</p>
+          <p>Скрипт v1.4, локальный мост <code class="mono">bridge.py</code>, инструкция, лаунчеры для Windows и Linux, готовые OG-метатеги. Вес <b id="zipSize2">≈ 58 КБ</b>.</p>
           <div class="row"><a class="btn primary small" href="download/site-mirror.zip" download>Скачать ZIP</a></div>
         </div>
         <div class="card">
@@ -478,11 +601,11 @@ python site_mirror.py repo osu-web</pre>
             <div class="dc-avatar">SM</div>
             <div class="dc-body">
               <div class="dc-meta"><b>site_mirror</b><span class="dc-tag">APP</span><span class="dc-time">Сегодня в 14:03</span></div>
-              <div class="dc-text">Забрать архив можно тут: <a href="https://USERNAME.github.io/site-mirror/">https://USERNAME.github.io/site-mirror/</a></div>
+              <div class="dc-text">Забрать архив можно тут: <a href="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/">https://dragonfly-lgbt-rgb.github.io/Site-Mirror/</a></div>
               <div class="dc-embed">
                 <div class="dc-provider"><i></i> site_mirror · GitHub Pages</div>
-                <a class="dc-title" href="https://USERNAME.github.io/site-mirror/">site_mirror — скачать сайт в ZIP</a>
-                <div class="dc-desc">Один ZIP со всеми файлами сайта: ассеты из JS/JSON, iframe-рамки предпросмотра, переписанные ссылки. Python 3.8+, без зависимостей.</div>
+                <a class="dc-title" href="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/">site_mirror — скачать сайт в ZIP</a>
+                <div class="dc-desc">Вставь адрес — сайт сам обойдёт страницы, достанет ассеты из JS/JSON, перепишет ссылки и отдаст готовый ZIP-архив. Прямо в браузере.</div>
                 <div class="dc-fields">
                   <div class="dc-field"><b>Формат</b><span>ZIP · 52 КБ</span></div>
                   <div class="dc-field"><b>Версия</b><span>v1.4</span></div>
@@ -526,8 +649,8 @@ python site_mirror.py repo osu-web</pre>
 &lt;meta property="og:site_name" content="site_mirror"&gt;
 &lt;meta property="og:title" content="site_mirror — скачать сайт в ZIP"&gt;
 &lt;meta property="og:description" content="Один ZIP со всеми файлами сайта…"&gt;
-&lt;meta property="og:url" content="https://USERNAME.github.io/site-mirror/"&gt;
-&lt;meta property="og:image" content="https://USERNAME.github.io/site-mirror/assets/og-image.png"&gt;
+&lt;meta property="og:url" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/"&gt;
+&lt;meta property="og:image" content="https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png"&gt;
 &lt;meta property="og:image:width" content="1200"&gt;
 &lt;meta property="og:image:height" content="630"&gt;
 &lt;meta property="og:image:alt" content="site_mirror — ZIP-архив"&gt;
@@ -555,7 +678,7 @@ python site_mirror.py repo osu-web</pre>
 <footer>
   <div class="wrap foot-in">
     <span><b>site_mirror</b> v1.4 · статический сайт для GitHub Pages</span>
-    <a href="https://github.com/USERNAME/site-mirror">Репозиторий ↗</a>
+    <a href="https://github.com/dragonfly-lgbt-rgb/Site-Mirror">Репозиторий ↗</a>
     <a href="sitemap.xml">Sitemap</a>
     <a href="oembed.json">oEmbed</a>
     <span class="sp">Сделано на основе site_mirror.py · Python 3.8+ · без зависимостей</span>
@@ -646,6 +769,7 @@ python site_mirror.py repo osu-web</pre>
   var entries = [];
   var PROJECT_FILES = [
     { path: 'download/site_mirror.py', name: 'site_mirror.py', label: 'Скрипт v1.4', size: '173 КБ' },
+    { path: 'bridge.py', name: 'bridge.py', label: 'Локальный мост', size: '9 КБ' },
     { path: 'README.md', name: 'README.md', label: 'Инструкция по деплою', size: '8 КБ' },
     { path: 'assets/og-image.png', name: 'og-image.png', label: 'OG-картинка 1200×630', size: '147 КБ' },
     { path: 'assets/favicon.svg', name: 'favicon.svg', label: 'Иконка сайта', size: '1 КБ' },
@@ -889,6 +1013,534 @@ python site_mirror.py repo osu-web</pre>
   }
 
   render();
+})();
+</script>
+
+<!-- ── Движок «сайт → ZIP» (публичный прокси / локальный мост) ─────────── -->
+<script id="mirror-app">
+(function () {
+  'use strict';
+  var Z = window.ZipWriter;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var enc = new TextEncoder(), dec = new TextDecoder('utf-8');
+
+  var PROXIES = [
+    { name: 'cors.lol', build: function (u) { return 'https://api.cors.lol/?url=' + encodeURIComponent(u); } },
+    { name: 'allorigins', build: function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); } },
+    { name: 'codetabs', build: function (u) { return 'https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent(u); } },
+    { name: 'corsproxy.io', build: function (u) { return 'https://corsproxy.io/?url=' + encodeURIComponent(u); } }
+  ];
+  var EXTS = 'png|jpg|jpeg|gif|webp|bmp|ico|avif|svg|css|js|mjs|cjs|map|json|xml|txt|fnt|atlas|mp3|ogg|wav|m4a|aac|flac|opus|mp4|webm|woff2?|ttf|otf|wasm|glsl|bin|dat|lvl|plist|cfg|ini';
+  var Q = "[\"'`]", NOTQ = "[^\"'`\\s<>]";
+  var ASSET_RE = new RegExp(Q + '(' + NOTQ + '+\\.(?:' + EXTS + ')(?:\\?' + NOTQ + '*)?)' + Q, 'gi');
+  var CSS_URL_RE = /url\(\s*['"]?([^'")]+)['"]?\s*\)/gi;
+  var IMPORT_RE = /@import\s+['"]([^'"]+)['"]/gi;
+  var NOT_FOUND = /(there isn't a site hosted|no site hosted|site not found|404 not found|page not found|nothing to see here|welcome to nginx|deployment not found|this site is not available)/i;
+  // MIME-строки вида image/png — не адреса. Не трогаем обычные папки data/...
+  var MIME_RE = /^(image|text|application|audio|video|font|model|chemical|x-world)\/[a-z0-9.+-]+$/i;
+  var LINK_ATTRS = ['href', 'src', 'poster', 'data', 'data-src', 'data-href', 'data-url',
+    'data-file', 'srcset', 'content', 'manifest', 'action', 'background'];
+
+  var S = {
+    running: false, stop: false, finalized: false, mode: 'proxy', blob: null,
+    base: '', host: '', port: '', baseDir: '/', origin: '',
+    queue: [], seen: {}, map: {}, used: {}, entries: [],
+    files: 0, bytes: 0, errors: 0, tries: 0, active: 0, notes: [], wrapperDone: false,
+    maxDepth: 3, maxFiles: 300, maxBytes: 25 * 1024 * 1024,
+    extractAssets: true, external: false, embed: true, ensureIndex: true
+  };
+
+  /* ── утилиты ─────────────────────────────────────────────────────── */
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function short(u) {
+    try { var x = new URL(u); return x.host + (x.pathname.length > 34 ? x.pathname.slice(0, 31) + '…' : x.pathname); }
+    catch (e) { return String(u).slice(0, 60); }
+  }
+  function safeHost(h) { return String(h || 'site').replace(/[^a-z0-9._-]/gi, '_').slice(0, 60); }
+  function decodeSafe(s) { try { return decodeURIComponent(s); } catch (e) { return s; } }
+  function hash8(s) {
+    var h = 2166136261, i;
+    for (i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return (h >>> 0).toString(16).slice(0, 8);
+  }
+  function fetchWithTimeout(url, ms, opts) {
+    var ctrl = new AbortController(), t = setTimeout(function () { ctrl.abort(); }, ms || 15000);
+    var o = {}, k;
+    for (k in (opts || {})) o[k] = opts[k];
+    o.signal = ctrl.signal;
+    return fetch(url, o).finally(function () { clearTimeout(t); });
+  }
+
+  /* ── загрузка через цепочку CORS-прокси ──────────────────────────── */
+  async function fetchRaw(url, textOnly) {
+    var attempts = [{ name: 'напрямую', url: url }], i, a, res, buf, j, txt, custom, last = '';
+    custom = ($('#mProxyTpl').value || '').trim();
+    if (custom && custom.indexOf('{url}') >= 0) {
+      attempts.push({ name: 'свой прокси', url: custom.split('{url}').join(encodeURIComponent(url)) });
+    }
+    PROXIES.forEach(function (p) { attempts.push({ name: p.name, url: p.build(url) }); });
+    for (i = 0; i < attempts.length; i++) {
+      if (S.stop) throw new Error('остановлено');
+      a = attempts[i];
+      try {
+        res = await fetchWithTimeout(a.url, 12000, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        buf = new Uint8Array(await res.arrayBuffer());
+        if (!buf.length) throw new Error('пустой ответ');
+        return { data: buf, ct: res.headers.get('content-type') || '', via: a.name };
+      } catch (e) { last = a.name + ': ' + e.message; }
+    }
+    // Запасной вариант для текстов: allorigins /get отдаёт JSON {"contents": "..."}
+    if (textOnly) {
+      try {
+        res = await fetchWithTimeout('https://api.allorigins.win/get?url=' + encodeURIComponent(url), 12000);
+        if (res.ok) {
+          j = await res.json();
+          txt = j && j.contents;
+          if (txt && typeof txt === 'string') {
+            return { data: enc.encode(txt), ct: 'text/html', via: 'allorigins-json' };
+          }
+        }
+      } catch (e) { last += ' | allorigins-json: ' + e.message; }
+    }
+    throw new Error(last || 'нет доступного способа');
+  }
+
+  /* ── типы файлов, пути, ссылки ───────────────────────────────────── */
+  function kindOf(url, ct, data) {
+    var ext = '', c = (ct || '').toLowerCase(), head = '';
+    try { ext = (new URL(url).pathname.split('.').pop() || '').toLowerCase(); } catch (e) {}
+    if (/^(png|jpe?g|gif|webp|bmp|ico|avif|mp3|ogg|wav|m4a|aac|flac|opus|mp4|webm|woff2?|ttf|otf|eot|wasm|bin|dat|lvl|swf|pdf|zip)$/.test(ext)) return 'binary';
+    if (c.indexOf('text/html') >= 0 || ext === 'html' || ext === 'htm' || ext === '' || ext === 'php' || ext === 'asp') return 'html';
+    if (c.indexOf('css') >= 0 || ext === 'css') return 'css';
+    if (c.indexOf('javascript') >= 0 || ext === 'js' || ext === 'mjs' || ext === 'cjs') return 'js';
+    if (c.indexOf('json') >= 0 || ext === 'json') return 'json';
+    if (c.indexOf('svg') >= 0 || ext === 'svg') return 'svg';
+    if (c.indexOf('text/') >= 0 || ext === 'txt' || ext === 'xml') return 'text';
+    try { head = dec.decode((data || new Uint8Array()).subarray(0, 256)).toLowerCase(); } catch (e) {}
+    if (head.indexOf('<html') >= 0 || head.indexOf('<!doctype') >= 0) return 'html';
+    return 'binary';
+  }
+  function setBase(url) {
+    var u = new URL(url), p;
+    S.base = u.href; S.host = u.hostname; S.port = u.port || ''; S.origin = u.origin;
+    p = u.pathname || '/';
+    S.baseDir = p.replace(/[^/]*$/, '') || '/';
+  }
+  function inScope(url) {
+    try { var u = new URL(url); return (u.hostname === S.host && (u.port || '') === S.port) || S.external; }
+    catch (e) { return false; }
+  }
+  function assignPath(url, kind) {
+    if (S.map[url]) return S.map[url];
+    var u = new URL(url), p = decodeSafe(u.pathname), parts, last, candidate, n = 2, i, dot, tag;
+    if (S.baseDir !== '/' && p.indexOf(S.baseDir) === 0) p = p.slice(S.baseDir.length);
+    p = p.replace(/^\/+/, '');
+    if (u.hostname !== S.host) p = safeHost(u.hostname) + '/' + p;
+    parts = p.split('/').filter(function (x) { return x && x !== '.' && x !== '..'; });
+    if (!parts.length) parts = ['index.html'];
+    else {
+      last = parts[parts.length - 1];
+      if (u.pathname.slice(-1) === '/' || !/\.[a-z0-9]{1,8}$/i.test(last)) {
+        if (kind === 'html') parts.push('index.html');
+        else parts[parts.length - 1] = last + '.bin';
+      }
+    }
+    if (u.search && u.search.length > 1 && !/^\?embed(=|&|$)/i.test(u.search)) {
+      i = parts.length - 1; dot = parts[i].lastIndexOf('.'); tag = '-' + hash8(u.search);
+      parts[i] = dot > 0 ? parts[i].slice(0, dot) + tag + parts[i].slice(dot) : parts[i] + tag;
+    }
+    candidate = parts.join('/');
+    while (S.used[candidate]) {
+      dot = candidate.lastIndexOf('.');
+      candidate = dot > 0 ? candidate.slice(0, dot) + '-' + n + candidate.slice(dot) : candidate + '-' + n;
+      n++;
+    }
+    S.used[candidate] = true; S.map[url] = candidate;
+    return candidate;
+  }
+  function resolveRef(raw, base) {
+    if (raw === null || raw === undefined) return null;
+    var s = String(raw).trim(), u;
+    if (!s || s.length < 2) return null;
+    if (/^(data:|blob:|javascript:|mailto:|tel:|about:|#)/i.test(s)) return null;
+    try {
+      u = new URL(s, base);
+      if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+      u.hash = '';
+      return { raw: String(raw), url: u.href };
+    } catch (e) { return null; }
+  }
+  function pushRef(list, raw, base) {
+    var r = resolveRef(raw, base);
+    if (r && inScope(r.url)) list.push(r);
+  }
+  function harvestCssLike(text, list, base) {
+    var m;
+    CSS_URL_RE.lastIndex = 0;
+    while ((m = CSS_URL_RE.exec(text))) { if (!MIME_RE.test(m[1])) pushRef(list, m[1], base); }
+    IMPORT_RE.lastIndex = 0;
+    while ((m = IMPORT_RE.exec(text))) pushRef(list, m[1], base);
+  }
+  function harvestJsLike(text, list, base) {
+    var m;
+    CSS_URL_RE.lastIndex = 0;
+    while ((m = CSS_URL_RE.exec(text))) { if (!MIME_RE.test(m[1])) pushRef(list, m[1], base); }
+    ASSET_RE.lastIndex = 0;
+    while ((m = ASSET_RE.exec(text))) { if (!MIME_RE.test(m[1])) pushRef(list, m[1], base); }
+  }
+  function harvest(text, url, kind) {
+    var list = [], doc;
+    if (kind === 'html') {
+      doc = new DOMParser().parseFromString(text, 'text/html');
+      $$('*', doc).forEach(function (el) {
+        LINK_ATTRS.forEach(function (a) {
+          var v = el.getAttribute(a);
+          if (!v) return;
+          if (a === 'srcset') v.split(',').forEach(function (part) { pushRef(list, part.trim().split(/\s+/)[0], url); });
+          else pushRef(list, v, url);
+        });
+      });
+      $$('style', doc).forEach(function (el) { harvestCssLike(el.textContent || '', list, url); });
+      $$('script', doc).forEach(function (el) { harvestJsLike(el.textContent || '', list, url); });
+    } else if (kind === 'css') harvestCssLike(text, list, url);
+    else if (kind === 'js' || kind === 'json') harvestJsLike(text, list, url);
+    else if (kind === 'svg' || kind === 'text') harvestCssLike(text, list, url);
+    return list;
+  }
+  function detectWrapper(text, url) {
+    var m = /<iframe[^>]+src\s*=\s*["']([^"']+)["']/i.exec(text), inner;
+    if (!m) return null;
+    try {
+      inner = new URL(m[1].trim(), url).href;
+      if (inner.split('?')[0].replace(/\/$/, '') === url.split('?')[0].replace(/\/$/, '') && !/embed/i.test(inner)) {
+        inner += (inner.indexOf('?') >= 0 ? '&' : '?') + 'embed=true';
+      }
+      return inner;
+    } catch (e) { return null; }
+  }
+  function dirname(p) { var i = p.lastIndexOf('/'); return i < 0 ? '' : p.slice(0, i); }
+  function relative(from, to) {
+    var a = dirname(from).split('/').filter(Boolean), b = to.split('/').filter(Boolean), i = 0, parts = [], k;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    for (k = 0; k < a.length - i; k++) parts.push('..');
+    return parts.concat(b.slice(i)).join('/') || './';
+  }
+  function rewriteText(text, myPath, refs) {
+    var pairs = [], seen = {}, i, from;
+    function add(f, t) { if (f && f.length >= 3 && !seen[f]) { seen[f] = 1; pairs.push([f, t]); } }
+    refs.forEach(function (r) {
+      var target = S.map[r.url], u, rel;
+      if (!target) return;
+      rel = relative(myPath, target);
+      add(r.raw, rel); add(r.url, rel);
+      try { u = new URL(r.url); add(u.origin + u.pathname, rel); add(u.pathname, rel); } catch (e) {}
+    });
+    Object.keys(S.map).forEach(function (u) { add(u, relative(myPath, S.map[u])); });
+    pairs.sort(function (a, b) { return b[0].length - a[0].length; });
+    for (i = 0; i < pairs.length; i++) {
+      from = pairs[i][0];
+      if (text.indexOf(from) >= 0) text = text.split(from).join(pairs[i][1]);
+    }
+    return text;
+  }
+
+  /* ── UI ──────────────────────────────────────────────────────────── */
+  function log(msg, kind) {
+    var box = $('#mLog'), d = document.createElement('div');
+    d.className = kind || ''; d.textContent = msg;
+    box.appendChild(d);
+    while (box.children.length > 320) box.removeChild(box.firstChild);
+    box.scrollTop = box.scrollHeight;
+  }
+  function mstatus(msg, kind) {
+    var el = $('#mStatus'); el.textContent = msg; el.className = 'status' + (kind ? ' ' + kind : '');
+  }
+  function update() {
+    $('#mFiles').textContent = S.files;
+    $('#mBytes').textContent = Z.human(S.bytes);
+    $('#mQueue').textContent = S.queue.length;
+    $('#mErrors').textContent = S.errors;
+    var pct = S.blob ? 100 : (S.running ? Math.min(96, Math.round(S.files / Math.max(20, S.maxFiles) * 100)) : 0);
+    if (S.running && !S.queue.length) pct = Math.max(pct, 88);
+    $('#mBar').style.width = pct + '%';
+  }
+  function setButtons(running) { $('#btnMirror').disabled = running; $('#btnStop').disabled = !running; }
+  function saveBlob(blob, name) {
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+  }
+  function reset() {
+    S.stop = false; S.running = true; S.finalized = false; S.blob = null;
+    S.queue = []; S.seen = {}; S.map = {}; S.used = {}; S.entries = [];
+    S.files = 0; S.bytes = 0; S.errors = 0; S.tries = 0; S.active = 0; S.notes = []; S.wrapperDone = false;
+    $('#mLog').textContent = ''; $('#mResult').hidden = true; $('#mBar').style.width = '0%';
+    update();
+  }
+  function readSettings() {
+    S.maxDepth = clamp(parseInt($('#mDepth').value, 10) || 3, 0, 10);
+    S.maxFiles = clamp(parseInt($('#mFiles').value, 10) || 300, 10, 2000);
+    S.maxBytes = clamp(parseInt($('#mMB').value, 10) || 25, 1, 200) * 1024 * 1024;
+    S.extractAssets = $('#mAssets').checked; S.external = $('#mExternal').checked;
+    S.embed = $('#mEmbed').checked; S.ensureIndex = $('#mIndex').checked;
+  }
+  function candidates(raw) {
+    raw = (raw || '').trim();
+    if (!raw) throw new Error('Введи адрес сайта');
+    var arr = [];
+    function add(s) { try { var u = new URL(s); if (!u.pathname) u.pathname = '/'; u.hash = ''; arr.push(u.href); } catch (e) {} }
+    if (!/^https?:\/\//i.test(raw)) { add('https://' + raw); add('http://' + raw); } else add(raw);
+    if (!arr.length) throw new Error('Не могу разобрать адрес');
+    return arr;
+  }
+  function buildReport(reason) {
+    var site = ($('link[rel="canonical"]') || {}).href || 'https://dragonfly-lgbt-rgb.github.io/Site-Mirror/';
+    var lines = ['# Отчёт о зеркалировании', '',
+      '- Источник: `' + S.base + '`',
+      '- Режим: ' + (S.mode === 'bridge' ? 'локальный мост (site_mirror.py v1.4)' : 'браузер + публичный CORS-прокси'),
+      '- Дата: ' + new Date().toLocaleString('ru-RU'),
+      '- Файлов: ' + S.entries.length + ', объём: ' + Z.human(S.bytes) + ', ошибок: ' + S.errors,
+      '- Статус: ' + (reason || 'готово'), ''];
+    if (S.notes.length) {
+      lines.push('## Замечания', '');
+      S.notes.forEach(function (n) { lines.push('- ' + n); });
+      lines.push('');
+    }
+    lines.push('## Состав', '');
+    S.entries.slice(0, 300).forEach(function (e) { lines.push('- `' + e.name + '` — ' + Z.human(e.data.length)); });
+    if (S.entries.length > 300) lines.push('- … и ещё ' + (S.entries.length - 300));
+    lines.push('', '---', 'Создано на ' + site,
+      'Для полного зеркала без ограничений CORS: python bridge.py + режим «Локальный мост».', '');
+    return lines.join('\n');
+  }
+  function finalize(reason) {
+    if (S.finalized) return;
+    S.finalized = true;
+    if (S.ensureIndex && !S.entries.some(function (e) { return e.name.toLowerCase() === 'index.html'; })) {
+      var first = S.entries.filter(function (e) { return /\.html?$/i.test(e.name); })[0];
+      if (first) S.entries.push({ name: 'index.html', data: first.data });
+    }
+    S.entries.push({ name: '_MIRROR_REPORT.md', data: enc.encode(buildReport(reason)) });
+    var list = S.entries.map(function (e) { return { name: e.name, data: e.data }; });
+    S.blob = Z.buildZip(list);
+    var name = 'Site-Mirror-' + safeHost(S.host) + '.zip';
+    saveBlob(S.blob, name);
+    $('#mResult').hidden = false;
+    $('#mResultInfo').textContent = 'Источник: ' + short(S.base) + ' · ' + S.entries.length + ' файлов · ' +
+      Z.human(S.blob.size) + '. ' + (reason || 'Готово.');
+    S.running = false; setButtons(false); update();
+    log('✓ Архив «' + name + '» (' + Z.human(S.blob.size) + ') сохранён на устройство.', 'ok');
+    mstatus('Готово! ' + S.entries.length + ' файлов → ' + Z.human(S.blob.size) + '. Архив скачивается.', 'ok');
+  }
+
+  /* ── обходчик ────────────────────────────────────────────────────── */
+  async function processItem(item) {
+    if (S.stop || (item.base && item.base !== S.base)) return;
+    if (S.files >= S.maxFiles || S.bytes >= S.maxBytes) {
+      S.stop = true; log('⚠ Достигнут лимит файлов/объёма', 'warn'); return;
+    }
+    S.tries++;
+    var res, kind, text, inner, path, refs = [], i, r, k, nextDepth, doRewrite, outBytes;
+    try { res = await fetchRaw(item.url, item.kind !== 'binary'); }
+    catch (e) { S.errors++; log('✗ ' + short(item.url) + ' — ' + e.message, 'err'); update(); return; }
+
+    kind = kindOf(item.url, res.ct, res.data);
+    text = (kind === 'binary') ? null : dec.decode(res.data);
+
+    // v1.4: площадка-«рамка» держит настоящий сайт в iframe
+    if (kind === 'html' && item.depth === 0 && S.embed && !S.wrapperDone && text) {
+      inner = detectWrapper(text, item.url);
+      if (inner && inner !== item.url) {
+        S.wrapperDone = true;
+        log('↪ Обёртка предпросмотра, внутри iframe: ' + short(inner), 'warn');
+        setBase(inner);
+        S.queue = [{ url: inner, depth: 0, kind: 'html', base: inner }];
+        S.seen = {}; S.map = {}; S.used = {}; S.entries = [];
+        S.files = 0; S.bytes = 0; S.errors = 0;
+        assignPath(inner, 'html'); update();
+        return;
+      }
+    }
+
+    path = S.map[item.url] || assignPath(item.url, kind);
+    if (text && item.depth === 0 && NOT_FOUND.test(text)) {
+      S.notes.push('Сервер отдал заглушку / «сайта нет» — проверь адрес в браузере.');
+      log('⚠ Похоже, это заглушка хостинга, а не сайт', 'warn');
+    }
+    if (text) {
+      var skip = !S.extractAssets && (kind === 'js' || kind === 'css' || kind === 'json');
+      if (!skip) refs = harvest(text, item.url, kind);
+    }
+    nextDepth = item.depth + 1;
+    for (i = 0; i < refs.length; i++) {
+      r = refs[i];
+      if (S.seen[r.url] || nextDepth > S.maxDepth) continue;
+      if (S.files + S.queue.length > S.maxFiles * 1.5) break;
+      k = kindOf(r.url, '', new Uint8Array(0));
+      assignPath(r.url, k);
+      S.queue.push({ url: r.url, depth: nextDepth, kind: k, base: S.base });
+    }
+    if (text) {
+      doRewrite = (kind === 'html' || kind === 'css' || kind === 'js' || kind === 'json' || kind === 'svg');
+      outBytes = enc.encode(doRewrite ? rewriteText(text, path, refs) : text);
+    } else outBytes = res.data;
+    S.entries.push({ name: path, data: outBytes });
+    S.files++; S.bytes += outBytes.length;
+    log('✓ ' + path + '  ' + Z.human(outBytes.length) + (res.via !== 'напрямую' ? '  [' + res.via + ']' : ''), 'ok');
+    update();
+  }
+  async function worker() {
+    while (!S.stop) {
+      if (!S.queue.length) {
+        if (!S.active) break;           // очередь пуста и активных задач нет → всё готово
+        await sleep(60);
+        continue;
+      }
+      var item = S.queue.shift();
+      if (!item || S.seen[item.url]) continue;
+      S.seen[item.url] = true;
+      S.active++;
+      try { await processItem(item); } finally { S.active--; }
+    }
+  }
+  async function crawl() {
+    var pool = [], i;
+    for (i = 0; i < 4; i++) pool.push(worker());
+    await Promise.all(pool);
+  }
+
+  /* ── режимы ──────────────────────────────────────────────────────── */
+  async function runProxy(raw) {
+    var list = candidates(raw), i, ok = null, lastErr = '', probe, k, t;
+    for (i = 0; i < list.length; i++) {
+      try {
+        setBase(list[i]);
+        probe = await fetchRaw(S.base, true);
+        k = kindOf(S.base, probe.ct, probe.data);
+        t = (k === 'binary') ? '' : dec.decode(probe.data);
+        if (t && NOT_FOUND.test(t) && i < list.length - 1) { lastErr = 'заглушка'; continue; }
+        ok = S.base; break;
+      } catch (e) { lastErr = e.message; log('✗ ' + short(list[i]) + ' — ' + e.message, 'dim'); }
+    }
+    if (!ok) throw new Error('Не удалось открыть адрес. Попробуй режим «Локальный мост». (' + lastErr + ')');
+    setBase(ok);
+    log('▶ Старт: ' + S.base, 'warn');
+    S.queue = [{ url: S.base, depth: 0, kind: 'html', base: S.base }];
+    assignPath(S.base, 'html');
+    await crawl();
+    finalize(S.stop ? 'Остановлено — сохранено то, что успело скачаться.' : 'Готово.');
+  }
+  async function runBridge(raw) {
+    var base = $('#bridgeUrl').value.trim().replace(/\/$/, ''), pj, r, jr, lastLog = 0, st, lines, p, dl, host;
+    if (!base) throw new Error('Укажи адрес моста');
+    try {
+      var ping = await fetchWithTimeout(base + '/api/ping', 6000);
+      if (!ping.ok) throw new Error('HTTP ' + ping.status);
+      pj = await ping.json();
+      log('✓ Мост найден: site_mirror v' + (pj.engine || '?'), 'ok');
+    } catch (e) {
+      throw new Error('Мост не отвечает. Запусти «python bridge.py» и проверь адрес. ' + e.message);
+    }
+    r = await fetchWithTimeout(base + '/api/mirror', 10000, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url: raw, depth: S.maxDepth, max_files: S.maxFiles,
+        max_mb: Math.round(S.maxBytes / 1024 / 1024), threads: 12,
+        assets: S.extractAssets, external: S.external,
+        probe: true, dir_sweep: true, expand: true, verify_certs: true
+      })
+    });
+    jr = await r.json();
+    if (!jr.ok) throw new Error(jr.error || 'мост отказался стартовать');
+    log('▶ Задача отправлена в локальный мост', 'warn');
+    while (!S.stop) {
+      await sleep(800);
+      try { st = await (await fetchWithTimeout(base + '/api/status', 8000)).json(); }
+      catch (e) { log('⚠ Не удалось опросить мост: ' + e.message, 'warn'); continue; }
+      lines = st.log || [];
+      lines.slice(lastLog).forEach(function (ln) {
+        log(ln, /^✓|готово/i.test(ln) ? 'ok' : /^✗|ошиб/i.test(ln) ? 'err' : /^↪|⚠/.test(ln) ? 'warn' : 'dim');
+      });
+      lastLog = lines.length;
+      p = st.progress || {};
+      S.files = st.files || p.done || 0;
+      S.bytes = st.bytes || p.bytes_total || 0;
+      S.errors = st.errors || 0;
+      S.queue = new Array(Math.max(0, p.queued || 0));
+      update();
+      if (st.state === 'done') {
+        dl = await fetchWithTimeout(base + '/api/download', 60000);
+        if (!dl.ok) throw new Error('мост не отдал ZIP');
+        S.blob = await dl.blob();
+        host = 'site';
+        try { host = safeHost(new URL(/^https?:\/\//i.test(raw) ? raw : 'http://' + raw).hostname); } catch (e) {}
+        saveBlob(S.blob, 'Site-Mirror-' + host + '.zip');
+        $('#mResult').hidden = false;
+        $('#mResultInfo').textContent = 'Локальный мост · ' + (st.files || 0) + ' файлов · ' + Z.human(S.blob.size) + '. Полное зеркало движком v1.4.';
+        S.running = false; S.finalized = true; setButtons(false); update();
+        mstatus('Готово! ZIP (' + Z.human(S.blob.size) + ') сохранён на устройство.', 'ok');
+        log('✓ Архив получен и сохранён', 'ok');
+        return;
+      }
+      if (st.state === 'error') throw new Error(st.error || 'ошибка моста');
+    }
+    try { await fetchWithTimeout(base + '/api/stop', 4000, { method: 'POST' }); } catch (e) {}
+    mstatus('Остановлено.', 'warn');
+  }
+
+  /* ── события ─────────────────────────────────────────────────────── */
+  $$('.mode button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('.mode button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      S.mode = b.dataset.mode;
+      $('#bridgeBox').hidden = S.mode !== 'bridge';
+    });
+  });
+  $('#btnPing').addEventListener('click', async function () {
+    var base = $('#bridgeUrl').value.trim().replace(/\/$/, '');
+    try {
+      var r = await fetchWithTimeout(base + '/api/ping', 6000), j = await r.json();
+      mstatus('✓ Мост отвечает: site_mirror v' + (j.engine || '?'), 'ok');
+      log('✓ Мост отвечает: ' + base, 'ok');
+    } catch (e) {
+      mstatus('✗ Мост не отвечает. Запусти: python bridge.py', 'err');
+      log('✗ ' + e.message, 'err');
+    }
+  });
+  $('#btnMirror').addEventListener('click', async function () {
+    if (S.running) return;
+    var raw = $('#mirrorUrl').value.trim();
+    try {
+      candidates(raw);
+      S.host = safeHost(new URL(candidates(raw)[0]).hostname);
+    } catch (e) { S.host = 'site'; }
+    readSettings(); reset(); setButtons(true); mstatus('Скачиваю…');
+    try {
+      if (S.mode === 'bridge') await runBridge(raw);
+      else await runProxy(raw);
+    } catch (e) {
+      log('✗ ' + e.message, 'err'); mstatus(e.message, 'err');
+      S.running = false; setButtons(false); update();
+    }
+  });
+  $('#btnStop').addEventListener('click', function () {
+    S.stop = true; mstatus('Останавливаю…', 'warn'); log('■ Остановка…', 'warn');
+    if (S.mode === 'bridge') {
+      var base = $('#bridgeUrl').value.trim().replace(/\/$/, '');
+      fetch(base + '/api/stop', { method: 'POST' }).catch(function () {});
+    }
+  });
+  $('#btnAgain').addEventListener('click', function () {
+    if (!S.blob) return;
+    saveBlob(S.blob, 'Site-Mirror-' + safeHost(S.host) + '.zip');
+    mstatus('Архив скачивается ещё раз.', 'ok');
+  });
+
+  update();
 })();
 </script>
 </body>

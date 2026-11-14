@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /tools/
 
-Sitemap: https://USERNAME.github.io/site-mirror/sitemap.xml
+Sitemap: https://dragonfly-lgbt-rgb.github.io/Site-Mirror/sitemap.xml

@@ -12,6 +12,20 @@ python site_mirror.py --cli           # консольный мастер
 python site_mirror.py --tk            # старое окно tkinter
 ```
 
+## Сайт на GitHub Pages может скачивать сайты сам
+
+Открой https://dragonfly-lgbt-rgb.github.io/Site-Mirror/ — там можно вставить адрес,
+сайт скачает страницы и отдаст готовый ZIP. Для публичных сайтов хватает
+режима «Публичный прокси». Для локальных адресов и Radmin VPN (26.x.x.x)
+запусти рядом мост — он использует этот же движок без ограничений CORS:
+
+```bash
+python bridge.py                      # http://127.0.0.1:8787
+```
+
+На странице выбери «Локальный мост», вставь показанный адрес и нажми
+«Скачать сайт в ZIP». Файлы не покидают твой компьютер.
+
 ## Скачать сайт и получить ZIP
 
 ```bash
@@ -69,4 +83,4 @@ python site_mirror.py verify my_game
 
 `site_mirror.py` · SHA-256: `__SHA256__`
 
-Сайт проекта: https://USERNAME.github.io/site-mirror/
+Сайт проекта: https://dragonfly-lgbt-rgb.github.io/Site-Mirror/

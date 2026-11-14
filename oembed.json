@@ -3,11 +3,11 @@
   "type": "link",
   "title": "site_mirror — скачать сайт в ZIP",
   "author_name": "site_mirror",
-  "author_url": "https://github.com/USERNAME/site-mirror",
+  "author_url": "https://github.com/dragonfly-lgbt-rgb/Site-Mirror",
   "provider_name": "GitHub Pages",
   "provider_url": "https://pages.github.com/",
-  "url": "https://USERNAME.github.io/site-mirror/",
-  "thumbnail_url": "https://USERNAME.github.io/site-mirror/assets/og-image.png",
+  "url": "https://dragonfly-lgbt-rgb.github.io/Site-Mirror/",
+  "thumbnail_url": "https://dragonfly-lgbt-rgb.github.io/Site-Mirror/assets/og-image.png",
   "thumbnail_width": 1200,
   "thumbnail_height": 630
 }

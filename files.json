@@ -1,8 +1,8 @@
 {
   "project": "site_mirror",
   "version": "1.4",
-  "pages_url": "https://USERNAME.github.io/site-mirror/",
-  "repository": "https://github.com/USERNAME/site-mirror",
+  "pages_url": "https://dragonfly-lgbt-rgb.github.io/Site-Mirror/",
+  "repository": "https://github.com/dragonfly-lgbt-rgb/Site-Mirror",
   "files": [
     {
       "path": "download/site_mirror.py",
@@ -13,28 +13,36 @@
       "sha256": "6207cfd11d1f3eae19a21989cefbf113666d8287871e75cc799e8fb3333292b7"
     },
     {
+      "path": "bridge.py",
+      "name": "bridge.py",
+      "description": "Локальный мост для GitHub Pages (без CORS)",
+      "bytes": 12951,
+      "size": "12.6 КБ",
+      "sha256": "5149e9417604d6247786c93f243b4201396351c6b33ae9778af1020f923d7479"
+    },
+    {
       "path": "download/site-mirror.zip",
       "name": "site-mirror.zip",
       "description": "Готовый архив проекта",
-      "bytes": 54205,
-      "size": "52.9 КБ",
-      "sha256": "69c78dc46383659712f890a9eb53e4f4bccfe7a809644080c35ea4356ab4bd31"
+      "bytes": 59285,
+      "size": "57.9 КБ",
+      "sha256": "2545391d18fa2ad3124984abe0f2c05d4ef51f2c6bf4f54c48ac9d50df0084ae"
     },
     {
       "path": "README.md",
       "name": "README.md",
       "description": "Инструкция по деплою на GitHub Pages",
-      "bytes": 11436,
-      "size": "11.2 КБ",
-      "sha256": "749fa12679b01ade6bdb57aa17bcb5ea00039f9b4452e3c64a0d0adabf9942af"
+      "bytes": 12901,
+      "size": "12.6 КБ",
+      "sha256": "172c88c0c43798d45a6930ed74146eb4b5c60e2c130a8699ae716a22c8137813"
     },
     {
       "path": "assets/og-image.png",
       "name": "og-image.png",
       "description": "OG-картинка 1200×630 для Discord",
-      "bytes": 150968,
-      "size": "147.4 КБ",
-      "sha256": "5f7bbeca0dc7a8d6d0bfa31ced6c4875178bd2eb4952a9a054db85f2d3913d76"
+      "bytes": 152385,
+      "size": "148.8 КБ",
+      "sha256": "51680382cec6e3816f1e5cf9bad2d05ad4e2f3717ffb774e8c4db152fe9f0e7f"
     },
     {
       "path": "assets/favicon.svg",
@@ -48,17 +56,17 @@
       "path": "embed-tags.html",
       "name": "embed-tags.html",
       "description": "Готовые OG-метатеги",
-      "bytes": 3446,
+      "bytes": 3518,
       "size": "3.4 КБ",
-      "sha256": "4271e425b0f2d8de925a06867f61509d90623bae562089ff712be296964fd1a7"
+      "sha256": "a693206199c3f43486fe1f6b143730fbdcb34bdf04ebac48f9458eca2cc4435b"
     },
     {
       "path": "oembed.json",
       "name": "oembed.json",
       "description": "oEmbed-ответ",
-      "bytes": 462,
+      "bytes": 492,
       "size": "0.5 КБ",
-      "sha256": "8e70636c0c081604abbef6b6b6bcfb2862d5f5804df8c8dac0f68baf91daced2"
+      "sha256": "05b18ad87e20f7a80d98c0bdf5b24b1592831c373d65d5b8c4bb0b8c7f36dce5"
     }
   ]
 }
